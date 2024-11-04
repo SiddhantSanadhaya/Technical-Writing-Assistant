@@ -50,10 +50,10 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
-
+#
 # Your existing setup
-\key = os.environ['key']
-db_path = r"E:\UPSKILL\NLP\Langchain\rag\pdf_data_chatbot\db\path_to_saved_db_gpt_4_chunk_500"
+key = os.environ['key']
+db_path = r"db\path_to_saved_db_gpt_4_chunk_500"
 
 # Initialize database
 @st.cache_resource
@@ -78,11 +78,13 @@ st.sidebar.title("Settings")
 writing_format = st.sidebar.selectbox(
     "Writing Format",
     ["None","concise", "concise-tabular", "detailed", "procedural"],
+    index=0,
     key="writing_format"
 )
 output_format = st.sidebar.selectbox(
     "Output Format",
     ["None",".md", ".xlsx", ".docx"],
+    index=0,
     key="output_format"
 )
 
@@ -110,8 +112,8 @@ Your task:
    - If it's new information, create a new heading that fits the guide's style and structure.
 
 3. **Write the Content**: Draft the section in a way that maintains consistency with the guide's format, tone, and style. Ensure clarity, completeness, and readiness for direct inclusion in the guide.
-4. Follow *Important Guidelines* and *Writing Format*
-5. Then produce the output according to *Output Format*
+4. Follow *Important Guidelines* and *Writing Format* strictly.
+5. Then produce the output according to *Output Format* strictly.
 
 
 *Important Guidelines*:
@@ -120,15 +122,15 @@ Your task:
 - If the Jira Ticket Request lacks sufficient information to complete the task, respond with a list of specific questions or clarifications needed to proceed.
 
 *Writing Format*:
-- **Concise**: If `{writing_format}` is "concise," provide a brief and focused response, highlighting only key points.
-- **Concise-Tabular**: If `{writing_format}` is "concise-tabular," present a brief response in a tabular format, emphasizing key points.
-- **Detailed**: If `{writing_format}` is "detailed," provide an in-depth explanation with examples, background information, and context. Focus on the 'why' and 'what' of the topic.
-- **Procedural**: If `{writing_format}` is "procedural," provide step-by-step instructions or a sequence of actions in a **Concise** format. Use clear action verbs, and format the steps as needed for each `{output_format}` option.
+- **Concise**: If `{writing_format}` is "concise", provide a brief and focused response, highlighting only key points.
+- **Concise-Tabular**: If `{writing_format}` is "concise-tabular", present a brief response in a tabular format, emphasizing key points.
+- **Detailed**: If `{writing_format}` is "detailed", provide an in-depth explanation with examples, background information, and context. Focus on the 'why' and 'what' of the topic.
+- **Procedural**: If `{writing_format}` is "procedural", in numbered index only (not bullets or anything) provide step-by-step instructions or a sequence of list of actions in a **Concise** writing_format. Use clear action verbs, and format the steps as needed for each `{output_format}` option.
 
 *Output Format*:
-- **Markdown (.md)**: If `{output_format}` is ".md," format the response in .md Markdown format for easy integration into a markdown file. Use list formatting for steps if the procedural style is selected.
-- **Excel (.xlsx)**: If `{output_format}` is ".xlsx," present the information in a structured format suitable for Excel sheet for easy integration into sheet, with clear headings and data organization.
-- **Word (.docx)**: If `{output_format}` is ".docx," format the content appropriately for a Word document for easy integration into documentation, ensuring proper styling and layout.
+- **Markdown (.md)**: If `{output_format}` is ".md", format the response in .md Markdown format for easy integration into a markdown file. Use list formatting for steps if the procedural style is selected.
+- **Excel (.xlsx)**: If `{output_format}` is ".xlsx", present the information in a structured format suitable for Excel sheet for easy integration into sheet, with clear headings and data organization.
+- **Word (.docx)**: If `{output_format}` is ".docx", format the content appropriately for a Word document for easy integration into documentation, ensuring proper styling and layout.
 
 Jira Ticket Request: {input}
 Writing Format: {writing_format}
