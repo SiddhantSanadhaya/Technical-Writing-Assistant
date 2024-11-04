@@ -130,8 +130,7 @@ Your task:
 - **Detailed**: If `{writing_format}` is "detailed", provide an in-depth explanation with examples, background information, and context. Focus on the 'why' and 'what' of the topic.
 - **Procedural**: If `{writing_format}` is "procedural", in numbered index only (not bullets or anything) provide step-by-step instructions or a sequence of list of actions in a **Concise** writing_format. Use clear action verbs, and format the steps as needed for each `{output_format}` option.
 
-*Output Format*:
-- **None (None)**: If `{output_format}` is "None", format the output according to browser in plain text                                    
+*Output Format*:                     
 - **Markdown (.md)**: If `{output_format}` is ".md", format the response in .md Markdown format for easy integration into a markdown file. Use list formatting for steps if the procedural style is selected.
 - **Excel (.xlsx)**: If `{output_format}` is ".xlsx", present the information in a structured format suitable for Excel sheet for easy integration into sheet, with clear headings and data organization.
 - **Word (.docx)**: If `{output_format}` is ".docx", format the content appropriately for a Word document for easy integration into documentation, ensuring proper styling and layout.
