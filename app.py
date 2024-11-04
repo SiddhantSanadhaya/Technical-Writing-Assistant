@@ -86,8 +86,8 @@ writing_format = st.sidebar.selectbox(
 )
 output_format = st.sidebar.selectbox(
     "Output Format",
-    ["None",".md", ".xlsx", ".docx"],
-    index=0,
+    [".md", ".xlsx", ".docx"],
+    index=2,
     key="output_format"
 )
 
