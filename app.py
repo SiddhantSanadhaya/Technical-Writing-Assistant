@@ -7,7 +7,9 @@ import os
 from langchain_openai import OpenAIEmbeddings
 from langchain_chroma import Chroma
 from langchain_openai import ChatOpenAI
-
+import sys
+import pysqlite3 as sqlite3
+sys.modules["sqlite3"] = sqlite3
 # Set page config
 st.set_page_config(
     page_title="Technical Writing Assistant",
