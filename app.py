@@ -128,7 +128,7 @@ Your task:
 - **Concise**: If `{writing_format}` is "concise", provide a brief and focused response, highlighting only key points.
 - **Concise-Tabular**: If `{writing_format}` is "concise-tabular", present a brief response in a tabular format, emphasizing key points.
 - **Detailed**: If `{writing_format}` is "detailed", provide an in-depth explanation with examples, background information, and context. Focus on the 'why' and 'what' of the topic.
-- **Procedural**: If `{writing_format}` is "procedural", in numbered index only (not bullets or anything) provide step-by-step instructions or a sequence of list of actions in a **Concise** writing_format. Use clear action verbs, and format the steps as needed for each `{output_format}` option.
+- **Procedural**: If `{writing_format}` is "procedural", in numbered index only (not bullets or anything) provide step-by-step instructions or a sequence of list of actions in a **Concise** writing_format. Use clear action verbs.
 
 *Output Format*:                     
 - **Markdown (.md)**: If `{output_format}` is ".md", format the response in .md Markdown format for easy integration into a markdown file. Use list formatting for steps if the procedural style is selected.
