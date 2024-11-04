@@ -143,7 +143,7 @@ Output Format: {output_format}
 
 document_chain = create_stuff_documents_chain(llm, prompt)
 
-@st.cache_resource
+# @st.cache_resource
 def get_retriever():
     retriever = db.as_retriever()
     return retriever
