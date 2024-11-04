@@ -21,116 +21,22 @@ st.set_page_config(
 # Custom CSS with fixed header
 st.markdown("""
     <style>
-        /* Global Styles */
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-        
-        * {
-            font-family: 'Inter', sans-serif;
-        }
-
-        /* Header styling */
+        /* Header positioning */
         .fixed-header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             z-index: 999;
-            background: linear-gradient(135deg, #1e3799, #0c2461);
-            color: white;
-            padding: 1.5rem;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            backdrop-filter: blur(10px);
+            background-color: var(--text-color);
+            padding: 20px;
+            border-bottom: 1px solid #e5e5e5;
         }
 
-        /* Title styling */
-        .title {
-            text-align: center;
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        .subtitle {
-            text-align: center;
-            font-size: 1rem;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 1rem;
-        }
-
-        /* Main content area */
+        /* Main content padding to prevent overlap */
         .main-content {
-            margin-top: 180px;
-            padding: 2rem;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Chat message styling */
-        .stChatMessage {
-            background-color: #f8f9fa;
-            border-radius: 15px;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: transform 0.2s ease;
-        }
-
-        .stChatMessage:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Sidebar styling */
-        .css-1d391kg {
-            background-color: #f8f9fa;
-        }
-
-        .streamlit-expanderHeader {
-            background-color: white;
-            border-radius: 10px;
-        }
-
-        /* Button styling */
-        .stButton>button {
-            background: linear-gradient(135deg, #1e3799, #0c2461);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            padding: 0.5rem 1.5rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .stButton>button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        /* Select box styling */
-        .stSelectbox {
-            border-radius: 10px;
-        }
-
-        .stSelectbox > div > div {
-            background-color: white;
-            border-radius: 10px;
-            border: 1px solid #e0e0e0;
-        }
-
-        /* Chat input styling */
-        .stTextInput > div > div > input {
-            border-radius: 25px;
-            border: 2px solid #e0e0e0;
-            padding: 1rem;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .stTextInput > div > div > input:focus {
-            border-color: #1e3799;
-            box-shadow: 0 0 0 2px rgba(30,55,153,0.1);
+            margin-top: 200px; /* Adjust based on your header height */
+            padding: 20px;
         }
 
         /* Hide default Streamlit elements */
@@ -138,33 +44,15 @@ st.markdown("""
         footer {visibility: hidden;}
         header {visibility: hidden;}
 
-        /* Error message styling */
-        .stAlert {
-            background-color: #ffe4e4;
-            border-color: #ff0000;
-            color: #ff0000;
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-
-        /* Responsive design */
-        @media screen and (max-width: 768px) {
-            .main-content {
-                padding: 1rem;
-            }
-            
-            .title {
-                font-size: 1.5rem;
-            }
-            
-            .subtitle {
-                font-size: 0.875rem;
-            }
+        /* Center title */
+        .title {
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
         }
     </style>
 """, unsafe_allow_html=True)
-
 #
 # Your existing setup
 key = os.environ['key']
@@ -181,48 +69,27 @@ def get_db():
         return None
     return db
 
-# Create enhanced header with subtitle
+# Create fixed header HTML
 st.markdown("""
     <div class="fixed-header">
         <div class="title">Technical Writing Assistant</div>
-        <div class="subtitle">Create Professional Documentation Effortlessly</div>
     </div>
 """, unsafe_allow_html=True)
 
-# Enhanced sidebar with better organization
-with st.sidebar:
-    st.title("⚙️ Settings")
-    
-    with st.expander("Writing Preferences", expanded=True):
-        writing_format = st.selectbox(
-            "📝 Writing Format",
-            ["None", "concise", "concise-tabular", "detailed", "procedural"],
-            index=0,
-            key="writing_format",
-            help="Select the writing style for your documentation"
-        )
-        
-        output_format = st.selectbox(
-            "📄 Output Format",
-            [".md", ".xlsx", ".docx"],
-            index=2,
-            key="output_format",
-            help="Choose the file format for your output"
-        )
-    
-    with st.expander("About", expanded=False):
-        st.markdown("""
-            ### 🤖 How to Use
-            1. Select your preferred writing format
-            2. Choose your desired output format
-            3. Type your request in the chat
-            4. Get professionally written technical documentation
-            
-            ### 📚 Features
-            - Multiple writing styles
-            - Various output formats
-            - Real-time documentation generation
-        """)
+# Sidebar selectors
+st.sidebar.title("Settings")
+writing_format = st.sidebar.selectbox(
+    "Writing Format",
+    ["None","concise", "concise-tabular", "detailed", "procedural"],
+    index=0,
+    key="writing_format"
+)
+output_format = st.sidebar.selectbox(
+    "Output Format",
+    [".md", ".xlsx", ".docx"],
+    index=2,
+    key="output_format"
+)
 
 # Add spacing for fixed header
 st.markdown('<div class="main-content"></div>', unsafe_allow_html=True)
