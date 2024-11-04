@@ -344,3 +344,11 @@ if user_input:
                 "role": "assistant",
                 "content": answer
             })
+
+
+st.markdown("""
+    <div style="position: fixed; bottom: 20px; right: 20px; text-align: center;">
+        <img src="images.jpeg" alt="StatusNeo Logo" style="width: 100px; height: auto;">
+        <p style="font-size: 12px; margin-top: 5px; color: #555;">Created with ❤️ by StatusNeo</p>
+    </div>
+""", unsafe_allow_html=True)
