@@ -56,7 +56,7 @@ st.markdown("""
 #
 # Your existing setup
 key = os.environ['key']
-db_path = r"db\path_to_saved_db_gpt_4_chunk_500"
+db_path = "db\path_to_saved_db_gpt_4_chunk_500"
 
 # Initialize database
 @st.cache_resource
