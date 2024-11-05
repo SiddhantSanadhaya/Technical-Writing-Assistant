@@ -1,6 +1,6 @@
 import sys
-import pysqlite3 as sqlite3
-sys.modules["sqlite3"] = sqlite3
+# import pysqlite3 as sqlite3
+# sys.modules["sqlite3"] = sqlite3
 import streamlit as st
 from langchain_community.vectorstores import Chroma
 from langchain_core.prompts import ChatPromptTemplate
@@ -15,10 +15,10 @@ from langchain_openai import ChatOpenAI
 st.set_page_config(
     page_title="Technical Writing Assistant",
     layout="wide",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
-# Custom CSS with fixed header
+
 # ============= Styles =============
 
 # Enhanced Custom CSS with modern styling
@@ -178,6 +178,7 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
+
 # Enhanced sidebar with better organization
 with st.sidebar:
     st.title("⚙️ Settings")
@@ -199,7 +200,7 @@ with st.sidebar:
             help="Choose the file format for your output"
         )
     
-    with st.expander("About", expanded=False):
+    with st.expander("About", expanded=True):
         st.markdown("""
             ### 🤖 How to Use
             1. Select your preferred writing format
@@ -210,9 +211,14 @@ with st.sidebar:
             ### 📚 Features
             - Multiple writing styles
             - Various output formats
-            - GPT-4 powered responses
             - Real-time documentation generation
         """)
+    # if os.path.exists(logo_path):
+    #     st.image(logo_path, width=200, caption="Created with ❤️ by StatusNeo")
+    # else:
+    #     st.error("Logo image not found. Please check the path.")
+
+
 
 # Add spacing for fixed header
 st.markdown('<div class="main-content"></div>', unsafe_allow_html=True)
@@ -220,7 +226,7 @@ st.markdown('<div class="main-content"></div>', unsafe_allow_html=True)
 #
 # Your existing setup
 key = os.environ['key']
-db_path = "db/path_to_saved_db_gpt_4_chunk_500"
+db_path = "path_to_saved_db_gpt_4_chunk_500_new"
 
 # Initialize database
 @st.cache_resource
@@ -233,30 +239,6 @@ def get_db():
         return None
     return db
 
-# # Create fixed header HTML
-# st.markdown("""
-#     <div class="fixed-header">
-#         <div class="title">Technical Writing Assistant</div>
-#     </div>
-# """, unsafe_allow_html=True)
-
-# # Sidebar selectors
-# st.sidebar.title("Settings")
-# writing_format = st.sidebar.selectbox(
-#     "Writing Format",
-#     ["None","concise", "concise-tabular", "detailed", "procedural"],
-#     index=0,
-#     key="writing_format"
-# )
-# output_format = st.sidebar.selectbox(
-#     "Output Format",
-#     [".md", ".xlsx", ".docx"],
-#     index=2,
-#     key="output_format"
-# )
-
-# # Add spacing for fixed header
-# st.markdown('<div class="main-content"></div>', unsafe_allow_html=True)
 
 # Initialize session state for messages
 if 'messages' not in st.session_state:
@@ -264,7 +246,11 @@ if 'messages' not in st.session_state:
 
 # Initialize other components
 db = get_db()
-llm = ChatOpenAI(model="gpt-4o", openai_api_key=key, temperature=0)
+@st.cache_resource
+def get_llm():
+    llm = ChatOpenAI(model="gpt-4o", openai_api_key=key, temperature=0)
+    return llm
+llm = get_llm()
 
 # Your existing prompt template
 prompt = ChatPromptTemplate.from_template("""
@@ -304,6 +290,8 @@ Writing Format: {writing_format}
 Output Format: {output_format}
 
 """)
+
+
 
 document_chain = create_stuff_documents_chain(llm, prompt)
 
@@ -345,10 +333,3 @@ if user_input:
                 "content": answer
             })
 
-
-st.markdown("""
-    <div style="position: fixed; bottom: 20px; right: 20px; text-align: center;">
-        <img src="images.jpeg" alt="StatusNeo Logo" style="width: 100px; height: auto;">
-        <p style="font-size: 12px; margin-top: 5px; color: #555;">Created with ❤️ by StatusNeo</p>
-    </div>
-""", unsafe_allow_html=True)
