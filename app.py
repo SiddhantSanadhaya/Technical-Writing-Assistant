@@ -283,7 +283,6 @@ Your task:
 *Output Format*:                     
 - **Markdown (.md)**: If `{output_format}` is ".md", format the response in .md Markdown format for easy integration into a markdown file. Use list formatting for steps if the procedural style is selected.
 - **Excel (.xlsx)**: If `{output_format}` is ".xlsx", present the information in a structured format suitable for Excel sheet for easy integration into sheet, with clear headings and data organization.
-- **Word (.docx)**: If `{output_format}` is ".docx", format the content appropriately for a Word document for easy integration into documentation, ensuring proper styling and layout.
 
 Jira Ticket Request: {input}
 Writing Format: {writing_format}
@@ -295,7 +294,7 @@ Output Format: {output_format}
 
 document_chain = create_stuff_documents_chain(llm, prompt)
 
-# @st.cache_resource
+@st.cache_resource
 def get_retriever():
     retriever = db.as_retriever()
     return retriever
